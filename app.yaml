@@ -1,8 +1,27 @@
-application: xudongonlineshop
+application: xudongonlinestore
 version: 1
 runtime: php55
 api_version: 1
 
 handlers:
-- url: /.*
-  script: index.php
+- url: /
+  script: home.php
+
+- url: /home.php
+  script: home.php
+
+- url: /css
+  static_dir: css
+
+- url: /js
+  static_dir: js
+
+- url: /fonts
+  static_dir: fonts
+
+- url: /img
+  static_dir: img
+
+- url: /(.*\.(gif|png|jpg))$
+  static_files: static/\1
+  upload: static/.*\.(gif|png|jpg)$
