@@ -10,8 +10,8 @@ handlers:
 - url: /index.php
   script: index.php
 
-- url: /success.php
-  script: success.php
+- url: /PayPalCheckOut/.*
+  script: checkout.php
   
 - url: /css
   static_dir: css

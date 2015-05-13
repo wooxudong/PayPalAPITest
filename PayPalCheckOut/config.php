@@ -2,8 +2,8 @@
 $PayPalMode = 'sandbox';
 $PayPalApiUsername = 'wooxudong-facilitator_api1.gmail.com';
 $PayPalApiPassword = 'SXUZJQ7CD4DCUPJZ';
-$PayPalApiSignature = '';
+$PayPalApiSignature = 'AFcWxV21C7fd0v3bYYYRCpSSRl31Ap4gaxcbjwokITbavQ0EYBWKFAXC';
 $PayPalCurrencyCode = 'SGD';
-$PayPalReturnURL = 'http://xudongonlinestore.appspot.com/success.php';
+$PayPalReturnURL = 'http://xudongonlinestore.appspot.com/checkout.php';
 $PayPalCancelURL = 'http://xudongonlinestore.appspot.com/index.php';
 ?>

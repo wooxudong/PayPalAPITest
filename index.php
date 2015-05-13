@@ -247,7 +247,7 @@
                                 <input type="text" value="1" class="quantity">
                                 <a class="item_add" href="javascript:;"> Add to Cart </a>
                             </div>
-                            <p class="bg-info"></p>
+                            <p class="info bg-info"></p>
                         </div>
                     </div>
                 </div>
