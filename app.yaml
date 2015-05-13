@@ -5,11 +5,14 @@ api_version: 1
 
 handlers:
 - url: /
-  script: home.php
+  script: index.php
 
-- url: /home.php
-  script: home.php
+- url: /index.php
+  script: index.php
 
+- url: /success.php
+  script: success.php
+  
 - url: /css
   static_dir: css
 

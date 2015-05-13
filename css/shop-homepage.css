@@ -40,6 +40,14 @@ body {
     color: #d17581;
 }
 
+.add_cart{
+    padding:0px 10px 10px 10px;
+}
+
+.add_cart > a{
+    margin-left: 45px;
+}
+
 .thumbnail {
     padding: 0;
 }
@@ -47,6 +55,25 @@ body {
 .thumbnail .caption-full {
     padding: 9px;
     color: #333;
+}
+
+h3{
+    margin-left: 8px;
+}
+.checkout > p, a{
+    display:inline;
+}
+
+.checkout > p {
+    float:left;
+    margin-top: 35px;
+    margin-right: 20px;
+    margin-left:8px;
+    padding:5px;
+}
+
+.checkout > a > img{
+    margin-top: 35px;
 }
 
 footer {

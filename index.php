@@ -33,13 +33,7 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="home.php">Xudong Online Store</a>
+                <a class="navbar-brand" href="home.php">Xudong's Online Store</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
 <!--             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -62,10 +56,7 @@
 
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
-
-            
 
             <div class="col-md-12">
 
@@ -120,6 +111,11 @@
                                     <span class="glyphicon glyphicon-star"></span>
                                 </p>
                             </div>
+                            <div class="add_cart">
+                                <label> Quantity: </label>
+                                <input type="text" value="1" class="quantity">
+                                <a class="item_add" href="javascript:;"> Add to Cart </a>
+                            </div>
                         </div>
                     </div>
 
@@ -140,6 +136,11 @@
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
+                            </div>
+                            <div class="add_cart">
+                                <label> Quantity: </label>
+                                <input type="text" value="1" class="quantity">
+                                <a class="item_add" href="javascript:;"> Add to Cart </a>
                             </div>
                         </div>
                     </div>
@@ -162,6 +163,11 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                             </div>
+                            <div class="add_cart">
+                                <label> Quantity: </label>
+                                <input type="text" value="1" class="quantity">
+                                <a class="item_add" href="javascript:;"> Add to Cart </a>
+                            </div>
                         </div>
                     </div>
 
@@ -182,6 +188,11 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
+                            </div>
+                            <div class="add_cart">
+                                <label> Quantity: </label>
+                                <input type="text" value="1" class="quantity">
+                                <a class="item_add" href="javascript:;"> Add to Cart </a>
                             </div>
                         </div>
                     </div>
@@ -204,12 +215,17 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                             </div>
+                            <div class="add_cart">
+                                <label> Quantity: </label>
+                                <input type="text" value="1" class="quantity">
+                                <a class="item_add" href="javascript:;"> Add to Cart </a>
+                            </div>
                         </div>
                     </div>
                     
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
+                        <div class="thumbnail simpleCart_shelfItem">
                             <img src="img/loungechair.png" alt="">
                             <div class="caption">
                                 <h4 class="pull-right">$294.99</h4>
@@ -226,27 +242,58 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                             </div>
+                            <div class="add_cart">
+                                <label> Quantity: </label>
+                                <input type="text" value="1" class="quantity">
+                                <a class="item_add" href="javascript:;"> Add to Cart </a>
+                            </div>
+                            <p class="bg-info"></p>
                         </div>
                     </div>
                 </div>
 
             </div>
-
         </div>
+    </div>
 
+    <!-- /.container -->
+    
+    <div class="container cart">
+        <hr>
         <div class="row">
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                 <h4><a href="#">Check out with Paypal</a></h4>
+            <div class="col-sm-6 col-lg-6 col-md-6">
+                <h3> Shopping Cart: </h3>
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <td>Product</td>
+                            <td>Quantity</td>
+                            <td>Price</td>
+                            <td>Option</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="name" value="lc">Lounge Chair</td>
+                            <td id="quantity">X 2</td>
+                            <td id="price">$628.98</td>
+                            <td><a id="delete" href="#">Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6 col-lg-6 col-md-6 checkout">
+                    <h3> Check Out: </h3>
+                    <p class="bg-info"> Total Price: $628.98 </p>
+                    <a class="paypalcheckout" href="#"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
             </div>
         </div>
-
     </div>
-    <!-- /.container -->
+    
+
 
     <div class="container">
-
         <hr>
-
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -260,7 +307,9 @@
     <!-- /.container -->
 
     <!-- jQuery -->
+
     <script src="js/jquery.js"></script>
+    <script src="js/cart.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
