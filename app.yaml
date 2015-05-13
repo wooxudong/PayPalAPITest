@@ -10,8 +10,9 @@ handlers:
 - url: /index.php
   script: index.php
 
-- url: /PayPalCheckOut/.*
-  script: checkout.php
+# Serve php scripts.
+- url: /(.+\.php)$
+  script: \1
   
 - url: /css
   static_dir: css

@@ -285,7 +285,7 @@
             <div class="col-sm-6 col-lg-6 col-md-6 checkout">
                     <h3> Check Out: </h3>
                     <p class="bg-info"> Total Price: $628.98 </p>
-                    <a class="paypalcheckout" href="#"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
+                    <a class="paypalcheckout" href="checkout.php"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
             </div>
         </div>
     </div>

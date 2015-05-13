@@ -12,18 +12,17 @@ if($_POST) //Post Data received from product list page.
 	//In practical world you must fetch actual price from database using item id. Eg: 
 	//$ItemPrice = $mysqli->query("SELECT item_price FROM products WHERE id = Product_Number");
 
-	$item = $_POST["pdata"];
-
-
+	$item = json_decode($_POST["pdata"]);
+	$totalprice = (float) $_POST["totalprice"];
 	$padata = 	'&METHOD=SetExpressCheckout'.
 				'&RETURNURL='.urlencode($PayPalReturnURL ).
 				'&CANCELURL='.urlencode($PayPalCancelURL).
 				'&PAYMENTREQUEST_0_PAYMENTACTION='.urlencode("SALE");
 	for($i=0;$i<count($item);$i++)
-	{
-		$padata = $padata.'&L_PAYMENTREQUEST_0_NAME$i='.urlencode($item[$i].name).
-				'&L_PAYMENTREQUEST_0_AMT$i='.urlencode($item[$i].price).
-				'&L_PAYMENTREQUEST_0_QTY$i='. urlencode($item[$i].quantity);
+	{	
+		$padata = $padata.'&L_PAYMENTREQUEST_0_NAME'.$i.'='.urlencode($item[$i]->name).
+				'&L_PAYMENTREQUEST_0_AMT'.$i.'='.urlencode((float)$item[$i]->price).
+				'&L_PAYMENTREQUEST_0_QTY'.$i.'='. urlencode((int)$item[$i]->quantity);
 
 	}
 	//Other important variables like tax, shipping cost
@@ -32,18 +31,19 @@ if($_POST) //Post Data received from product list page.
 	$InsuranceCost 		= 1.00;  //shipping insurance cost for this order.
 	$ShippinDiscount 	= -3.00; //Shipping discount for this order. Specify this as negative number.
 	$ShippinCost 		= 3.00; //Although you may change the value later, try to pass in a shipping amount that is reasonably accurate.
-	
+	$GrandTotal = ($totalprice + $TotalTaxAmount + $HandalingCost + $InsuranceCost + $ShippinCost + $ShippinDiscount);
 	//Grand total including all tax, insurance, shipping cost and discount
 	
 	//Parameters for SetExpressCheckout, which will be sent to PayPal
 				
-		$padata = $padata.'&NOSHIPPING=0'. //set 1 to hide buyer's shipping address, in-case products that does not require shipping
+		$padata = $padata."&PAYMENTREQUEST_0_ITEMAMT".urlencode($totalprice).
+				'&NOSHIPPING=0'. //set 1 to hide buyer's shipping address, in-case products that does not require shipping
 				'&PAYMENTREQUEST_0_TAXAMT='.urlencode($TotalTaxAmount).
 				'&PAYMENTREQUEST_0_SHIPPINGAMT='.urlencode($ShippinCost).
 				'&PAYMENTREQUEST_0_HANDLINGAMT='.urlencode($HandalingCost).
 				'&PAYMENTREQUEST_0_SHIPDISCAMT='.urlencode($ShippinDiscount).
 				'&PAYMENTREQUEST_0_INSURANCEAMT='.urlencode($InsuranceCost).
-				'&PAYMENTREQUEST_0_AMT='.urlencode($_POST["totalprice"]).
+				'&PAYMENTREQUEST_0_AMT='.urlencode($GrandTotal).
 				'&PAYMENTREQUEST_0_CURRENCYCODE='.urlencode($PayPalCurrencyCode).
 				'&LOCALECODE=GB'. //PayPal pages to match the language on your website.
 				'&CARTBORDERCOLOR=FFFFFF'. //border color of cart
@@ -51,12 +51,13 @@ if($_POST) //Post Data received from product list page.
 				
 				############# set session variable we need later for "DoExpressCheckoutPayment" #######
 				$_SESSION['Item'] 				=  $item; //Item Name
+				$_SESSION['ItemTotalPrice']     =  $totalprice;
 				$_SESSION['TotalTaxAmount'] 	=  $TotalTaxAmount;  //Sum of tax for all items in this order. 
 				$_SESSION['HandalingCost'] 		=  $HandalingCost;  //Handling cost for this order.
 				$_SESSION['InsuranceCost'] 		=  $InsuranceCost;  //shipping insurance cost for this order.
 				$_SESSION['ShippinDiscount'] 	=  $ShippinDiscount; //Shipping discount for this order. Specify this as negative number.
 				$_SESSION['ShippinCost'] 		=  $ShippinCost; //Although you may change the value later, try to pass in a shipping amount that is reasonably accurate.
-				$_SESSION['GrandTotal'] 		=  $_POST["totalprice"];
+				$_SESSION['GrandTotal'] 		=  $GrandTotal;
 
 
 		//We need to execute the "SetExpressCheckOut" method to obtain paypal token
@@ -73,6 +74,8 @@ if($_POST) //Post Data received from product list page.
 			 
 		}else{
 			//Show error message
+			//
+			echo "$GrandTotal $totalprice";
 			echo '<div style="color:red"><b>Error : </b>'.urldecode($httpParsedResponseAr["L_LONGMESSAGE0"]).'</div>';
 			echo '<pre>';
 			print_r($httpParsedResponseAr);
@@ -92,7 +95,7 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 	
 	//get session variables
 	$item 				= $_SESSION['Item'];
-	$ItemTotalPrice 	= $_SESSION['ItemTotalPrice']; //(Item Price x Quantity = Total) Get total amount of product; 
+	$totalprice         = $_SESSION['ItemTotalPrice'];
 	$TotalTaxAmount 	= $_SESSION['TotalTaxAmount'] ;  //Sum of tax for all items in this order. 
 	$HandalingCost 		= $_SESSION['HandalingCost'];  //Handling cost for this order.
 	$InsuranceCost 		= $_SESSION['InsuranceCost'];  //shipping insurance cost for this order.
@@ -106,13 +109,14 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 				
 	for($i=0;$i<count($item);$i++)
 		{
-			$padata = $padata.'&L_PAYMENTREQUEST_0_NAME$i='.urlencode($item[$i].name).
-					'&L_PAYMENTREQUEST_0_AMT$i='.urlencode($item[$i].price).
-					'&L_PAYMENTREQUEST_0_QTY$i='. urlencode($item[$i].quantity);
 
+			$padata = $padata.'&L_PAYMENTREQUEST_0_NAME'.$i.'='.urlencode($item[$i]->name).
+				'&L_PAYMENTREQUEST_0_AMT'.$i.'='.urlencode((float)$item[$i]->price).
+				'&L_PAYMENTREQUEST_0_QTY'.$i.'='. urlencode((int)$item[$i]->quantity);
 		}
 
-		$padata= $padata.'&PAYMENTREQUEST_0_TAXAMT='.urlencode($TotalTaxAmount).
+		$padata= $padata."&PAYMENTREQUEST_0_ITEMAMT".urlencode($totalprice).
+				'&PAYMENTREQUEST_0_TAXAMT='.urlencode($TotalTaxAmount).
 				'&PAYMENTREQUEST_0_SHIPPINGAMT='.urlencode($ShippinCost).
 				'&PAYMENTREQUEST_0_HANDLINGAMT='.urlencode($HandalingCost).
 				'&PAYMENTREQUEST_0_SHIPDISCAMT='.urlencode($ShippinDiscount).

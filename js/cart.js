@@ -1,6 +1,6 @@
 (function(){
 
-totalprice = 628.99;
+totalprice = 364.97;
 
 
 var cart =[
@@ -26,7 +26,8 @@ $(".paypalcheckout").on("click",function(e){
 
   if(totalprice > 0)
   {
-    $.post("PayPalCheckOut/checkout.php",{"pdata": cart, "totalprice": totalprice})
+    var data = JSON.stringify(cart);
+    $.post("/PayPalCheckOut/checkout.php",{"pdata": data, "totalprice": totalprice})
       .done(function(res)
         {
           alert("success");
