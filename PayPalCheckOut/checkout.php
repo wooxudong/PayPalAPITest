@@ -70,6 +70,7 @@ if($_POST) //Post Data received from product list page.
 		if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"]))
 		{
 
+				echo"redirect user";
 				//Redirect user to PayPal store with Token received.
 			 	$paypalurl ='https://www'.$paypalmode.'.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token='.$httpParsedResponseAr["TOKEN"].'';
 				header('Location: '.$paypalurl);
@@ -77,7 +78,6 @@ if($_POST) //Post Data received from product list page.
 		}else{
 			//Show error message
 			//
-			echo "$GrandTotal $itemAmount";
 			echo '<div style="color:red"><b>Error : </b>'.urldecode($httpParsedResponseAr["L_LONGMESSAGE0"]).'</div>';
 			echo '<pre>';
 			print_r($httpParsedResponseAr);
