@@ -61,7 +61,6 @@ if($_POST) //Post Data received from product list page.
 				$_SESSION['ShippinCost'] 		=  $ShippinCost; //Although you may change the value later, try to pass in a shipping amount that is reasonably accurate.
 				$_SESSION['GrandTotal'] 		=  $GrandTotal;
 
-		echo $padata;
 		//We need to execute the "SetExpressCheckOut" method to obtain paypal token
 		$paypal= new MyPayPal();
 		$httpParsedResponseAr = $paypal->PPHttpPost('SetExpressCheckout', $padata, $PayPalApiUsername, $PayPalApiPassword, $PayPalApiSignature, $PayPalMode);
@@ -69,11 +68,9 @@ if($_POST) //Post Data received from product list page.
 		//Respond according to message we receive from Paypal
 		if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"]))
 		{
-
-				echo"redirect user";
 				//Redirect user to PayPal store with Token received.
 			 	$paypalurl ='https://www'.$paypalmode.'.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token='.$httpParsedResponseAr["TOKEN"].'';
-				header('Location: '.$paypalurl);
+				echo json_encode($paypalurl);
 			 
 		}else{
 			//Show error message

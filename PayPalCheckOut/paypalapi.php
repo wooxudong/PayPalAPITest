@@ -30,9 +30,12 @@ class MyPayPal {
 			// Set the request as a POST FIELD for curl.
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $nvpreq);
 		
+
 			// Get response from the server.
 			$httpResponse = curl_exec($ch);
-		
+			
+			
+
 			if(!$httpResponse) {
 				exit("$methodName_ failed: ".curl_error($ch).'('.curl_errno($ch).')');
 			}
