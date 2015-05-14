@@ -1,7 +1,6 @@
 (function(){
 
-totalprice = 364.97;
-
+var totalprice = 364.97;
 
 var cart =[
     {"name":"Deco Lamp",
@@ -29,24 +28,23 @@ $(".paypalcheckout").on("click",function(e){
     var data = JSON.stringify(cart);
     $.ajax({
       method: "POST",
-      url: "PayPalCheckOut/checkout.php",
+      url: "/checkout.php",
       dataType: "json",
       data: {"pdata": data, "totalprice": totalprice}
       }).done(function(res)
       {
-        window.location.href=res;
+        token = res["token"];
+        PayerID = res["PayerID"];
+        console.log(PayerID);
+        console.log(token);
+        window.location.href=res["url"];
       });
-
- 
   }
   else
   {
     $(".info").html("You haven't shopped any goods yet.");
   }
 });
-
-
-
 
 })();
 

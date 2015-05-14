@@ -7,11 +7,8 @@ handlers:
 - url: /
   script: index.php
 
-- url: /index.php
-  script: index.php
-
 # Serve php scripts.
-- url: /(.+\.php)$
+- url: /(\w+\.php)$
   script: \1
 
 - url: /css

@@ -34,24 +34,16 @@ class MyPayPal {
 			// Get response from the server.
 			$httpResponse = curl_exec($ch);
 			
+			curl_close($ch);
 			
 
 			if(!$httpResponse) {
 				exit("$methodName_ failed: ".curl_error($ch).'('.curl_errno($ch).')');
 			}
+
+			parse_str($httpResponse, $httpParsedResponseAr);
 		
-			// Extract the response details.
-			$httpResponseAr = explode("&", $httpResponse);
-		
-			$httpParsedResponseAr = array();
-			foreach ($httpResponseAr as $i => $value) {
-				$tmpAr = explode("=", $value);
-				if(sizeof($tmpAr) > 1) {
-					$httpParsedResponseAr[$tmpAr[0]] = $tmpAr[1];
-				}
-			}
-		
-			if((0 == sizeof($httpParsedResponseAr)) || !array_key_exists('ACK', $httpParsedResponseAr)) {
+			if((0 == sizeof($httpParsedResponseAr)) or !array_key_exists('ACK', $httpParsedResponseAr)) {
 				exit("Invalid HTTP Response for POST request($nvpreq) to $API_Endpoint.");
 			}
 		
