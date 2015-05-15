@@ -70,37 +70,37 @@ $httpParsedResponseAr = $paypal->PPHttpPost('GetExpressCheckoutDetails', $getexp
 
 ?>
     <?php include "templates/header.php" ?>
-    <pre>
-    <?php print_r($httpParsedResponseAr) ?>
-    </pre>
      <div class="container confirm">
         <div class="row">
             <div class="col-sm-6 col-lg-6 col-md-6">
-                <h3> Your order: </h3>
-                <table class="table table-striped table-responsive">
-                    <thead>
-                        <tr>
-                            <td>Product</td>
-                            <td>Quantity</td>
-                            <td>Price</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td id="name" value="lc">Lounge Chair</td>
-                            <td id="quantity">X 2</td>
-                            <td id="price">$628.98</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p> Total Price: $628.98 </p>
-                <form method="POST" action="confirm.php">
+                <h3> Your order Details: </h3>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 col-md-6">
+                <p> Shipping To: <?= htmlspecialchars($httpParsedResponseAr["SHIPTOSTREET"]) ?> <?= htmlspecialchars($httpParsedResponseAr["SHIPTOCITY"]) ?>,
+                                 <?= htmlspecialchars($httpParsedResponseAr["SHIPTOCOUNTRYNAME"]) ?>, <?= htmlspecialchars($httpParsedResponseAr["SHIPTOZIP"]) ?> </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 col-md-6">
+                <p> Total Price: <?= htmlspecialchars($_SESSION['GrandTotal']) ?> </p>
+                <hr>
+            </div>
+        </div>
+        
+       
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 col-md-6">       
+                 <form method="POST" action="confirm.php">
                     <input type="hidden" name="token" value="<?= htmlspecialchars($httpParsedResponseAr['TOKEN']) ?>">
                     <input type="hidden" name="payer_id" value="<?= htmlspecialchars($httpParsedResponseAr['PAYERID']) ?>">
                     <button class="confirm-btn btn btn-primary"> Pay Now </button>
-                </form>
+                 </form>
             </div>
         </div>
+           
     </div>
     <?php include "templates/footer.php" ?>
 <?php 
