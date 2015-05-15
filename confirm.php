@@ -1,6 +1,6 @@
 <?php
-require_once("PayPalCheckOut/config.php");
-require_once("PayPalCheckOut/paypalapi.php");
+include_once("PayPalCheckOut/config.php");
+include_once("PayPalCheckOut/paypalapi.php");
 
 $paypalmode = ($PayPalMode=='sandbox') ? '.sandbox' : '';
 $paypal= new MyPayPal();
