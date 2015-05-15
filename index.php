@@ -193,7 +193,6 @@
                                 <input type="text" value="1" class="quantity">
                                 <a class="item_add" id="lc" href="javascript:;">Add to Cart </a>
                             </div>
-                            <p class="info bg-info"></p>
                         </div>
                     </div>
                 </div>
@@ -232,6 +231,7 @@
                     <a class="paypalcheckout" href="checkout.php"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
             </div>
         </div>
+        <p class="info bg-info"></p>
     </div>
     
 <?php include "templates/footer.php" ?> 

@@ -1,6 +1,6 @@
 <?php
-include_once("PayPalCheckout/config.php");
-include_once("PayPalCheckout/paypalapi.php");
+require_once("PayPalCheckout/config.php");
+require_once("PayPalCheckout/paypalapi.php");
 
 $paypalmode = ($PayPalMode=='sandbox') ? '.sandbox' : '';
 
@@ -11,7 +11,7 @@ if($_POST) //Post Data received from product list page.
 	//Please Note : People can manipulate hidden field amounts in form,
 	//In practical world you must fetch actual price from database using item id. Eg: 
 	//$ItemPrice = $mysqli->query("SELECT item_price FROM products WHERE id = Product_Number");
-
+    
 	$item = json_decode($_POST["pdata"]);
 	$totalprice = (float) $_POST["totalprice"];
 	$itemAmount = 0.0;

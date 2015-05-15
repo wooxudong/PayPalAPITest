@@ -5,6 +5,8 @@ var totalprice = 0.0;
 var cart =[];
 
 $(".item_add").on("click",function(){
+ 
+  $(".info").html("");
 
   var add_cart = {};
   var item = $(this);
@@ -23,12 +25,11 @@ $(".item_add").on("click",function(){
         found = true;
         cart[i]["quantity"] += parseInt(quantity);
       }
-  };
+  }
   
   if(!found) cart.push(add_cart);
 
   updateShoppingCart();
-
 });
 
 $(document).on("click","#delete",function(e){
@@ -40,7 +41,7 @@ $(document).on("click","#delete",function(e){
       {
         cart.splice(i,1);
       }
-  };
+  }
   updateShoppingCart();
 });
 
@@ -54,17 +55,15 @@ function updateShoppingCart()
                         '</td><td><a id="delete" href="#">Delete</a></td></tr>';
     $(".cart_body").append(cart_addrow);
     totalprice += cart[i]["quantity"]*cart[i]["price"];
-  };
+  }
 
   $(".total_price").text("Total Price: $"+totalprice);
 }
-
 
 //to pass the information to PayPal Express Checkout API.
 $(".paypalcheckout").on("click",function(e){
 
   e.preventDefault();
-
   if(totalprice > 0)
   {
     var data = JSON.stringify(cart);
