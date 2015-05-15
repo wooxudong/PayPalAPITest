@@ -77,8 +77,6 @@ if($_POST) //Post Data received from product list page.
 				{
 					$paypalurl ='https://www'.$paypalmode.'.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token='.$httpParsedResponseAr["TOKEN"].'';
 				 	$return["url"] = $paypalurl;
-				 	$return["token"] = $httpParsedResponseAr["TOKEN"];
-				 	$return["PayerID"] = $httpParsedResponseAr2["PAYERID"];
 				 	echo json_encode($return);
 				}
 

@@ -1,6 +1,5 @@
 <?php
-class MyPayPal {
-    	
+class MyPayPal { 	
 	function PPHttpPost($methodName_, $nvpStr_, $PayPalApiUsername, $PayPalApiPassword, $PayPalApiSignature, $PayPalMode) {
 			// Set up your API credentials, PayPal end point, and API version.
 			$API_UserName = urlencode($PayPalApiUsername);
@@ -45,11 +44,8 @@ class MyPayPal {
 		
 			if((0 == sizeof($httpParsedResponseAr)) or !array_key_exists('ACK', $httpParsedResponseAr)) {
 				exit("Invalid HTTP Response for POST request($nvpreq) to $API_Endpoint.");
-			}
-		
+			}	
 		return $httpParsedResponseAr;
-	}
-		
+	}	
 }
 ?>
-

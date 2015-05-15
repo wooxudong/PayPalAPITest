@@ -7,8 +7,7 @@ $paypal= new MyPayPal();
 
 if ($_POST) {
     //we will be using these two variables to execute the "DoExpressCheckoutPayment"
-    //Note: we haven't received any payment yet.
-    
+    //Note: we haven't received any payment yet.   
     $token = $_POST["token"];
     $payer_id = $_POST["payer_id"];
 
@@ -46,7 +45,6 @@ if ($_POST) {
     //We need to execute the "DoExpressCheckoutPayment" at this point to Receive payment from user.
     $paypal= new MyPayPal();
     $httpParsedResponseAr = $paypal->PPHttpPost('DoExpressCheckoutPayment', $padata, $PayPalApiUsername, $PayPalApiPassword, $PayPalApiSignature, $PayPalMode);
-    
     //Check if everything went ok..
     if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) or "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"])) 
     {
@@ -66,8 +64,7 @@ if ($_POST) {
     
     die();
 }
-
-
+else{
 $getexp = '&'.http_build_query(array('TOKEN'=>$_GET['token']));
 $httpParsedResponseAr = $paypal->PPHttpPost('GetExpressCheckoutDetails', $getexp, $PayPalApiUsername, $PayPalApiPassword, $PayPalApiSignature, $PayPalMode);
 
@@ -106,3 +103,6 @@ $httpParsedResponseAr = $paypal->PPHttpPost('GetExpressCheckoutDetails', $getexp
         </div>
     </div>
     <?php include "templates/footer.php" ?>
+<?php 
+ } 
+?>

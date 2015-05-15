@@ -74,10 +74,6 @@ $(".paypalcheckout").on("click",function(e){
       data: {"pdata": data, "totalprice": totalprice}
       }).done(function(res)
       {
-        token = res["token"];
-        PayerID = res["PayerID"];
-        console.log(PayerID);
-        console.log(token);
         window.location.href=res["url"];
       });
   }
