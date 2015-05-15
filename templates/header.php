@@ -26,7 +26,7 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="home.php">Xudong's Online Store</a>
+                <a class="navbar-brand" href="index.php">Xudong's Online Store</a>
             </div>
         </div>
         <!-- /.container -->
