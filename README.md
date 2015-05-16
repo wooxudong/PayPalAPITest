@@ -3,8 +3,8 @@
 This project aims to inplement the PayPal’s Express Checkout API on a simple shopping website. 
 
 1. Artefacts I use:
-	Server: Google App Engine
-	Front-end: Bootstrap, HTML, CSS, Javascript, jQuery.
+	Server: Google App Engine;
+	Front-end: Bootstrap, HTML, CSS, Javascript, jQuery;
 	Back-end: PHP, cURL, PayPal Express Checkout API.
 
 2. How to use the website:
