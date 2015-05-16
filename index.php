@@ -1,13 +1,10 @@
 <?php include "templates/header.php" ?>
-
-    <!-- Page Content -->
+    
+    <!-- content -->
     <div class="container">
         <div class="row">
-
             <div class="col-md-12">
-
                 <div class="row carousel-holder">
-
                     <div class="col-md-12">
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
@@ -34,11 +31,8 @@
                             </a>
                         </div>
                     </div>
-
                 </div>
-
                 <div class="row">
-
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="img/decolamp.png" alt="">
@@ -64,7 +58,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="img/readtable.png" alt="">
@@ -90,7 +83,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="img/teatable.png" alt="">
@@ -116,7 +108,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="img/armchair.png" alt="">
@@ -142,7 +133,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="img/highchair.png" alt="">
@@ -168,8 +158,6 @@
                             </div>
                         </div>
                     </div>
-                    
-
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail simpleCart_shelfItem">
                             <img src="img/loungechair.png" alt="">
@@ -196,11 +184,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-    
+    <!-- content ends -->
+
+    <!-- shopping cart -->
     <div class="container cart">
         <hr>
         <div class="row">
@@ -216,23 +205,18 @@
                         </tr>
                     </thead>
                     <tbody class="cart_body">
-                        <!-- <tr>
-                            <td id="name" value="lc">Lounge Chair</td>
-                            <td id="quantity">X 2</td>
-                            <td id="price">$628.98</td>
-                            <td><a id="delete" href="#">Delete</a></td>
-                        </tr> -->
                     </tbody>
                 </table>
             </div>
             <div class="col-sm-6 col-lg-6 col-md-6 checkout">
-                    <h3> Check Out: </h3>
-                    <p class="total_price bg-info"> Total Price: </p>
-                    <a class="paypalcheckout" href="checkout.php"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
+                <h3> Check Out: </h3>
+                <p class="total_price bg-info"> Total Price: </p>
+                <a class="paypalcheckout" href="checkout.php"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
             </div>
         </div>
         <p class="info bg-info"></p>
     </div>
+    <!-- shopping cart ends -->
     
 <?php include "templates/footer.php" ?> 
     

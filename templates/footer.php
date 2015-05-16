@@ -1,6 +1,5 @@
-<div class="container">
+    <div class="container">
         <hr>
-        <!-- Footer -->
         <footer>
             <div class="row">
                 <div class="col-lg-12">
@@ -8,16 +7,13 @@
                 </div>
             </div>
         </footer>
-
     </div>
     <!-- /.container -->
 
     <!-- jQuery -->
-
     <script src="js/jquery.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
 </body>
-
 </html>

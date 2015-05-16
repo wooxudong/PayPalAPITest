@@ -4,13 +4,8 @@ include_once("PayPalCheckOut/paypalapi.php");
 
 $paypalmode = ($PayPalMode=='sandbox') ? '.sandbox' : '';
 
-if($_POST) //Post Data received from product list page.
+if($_POST) 
 {
-	//Mainly we need 4 variables from product page Item Name, Item Price, Item Number and Item Quantity.
-	
-	//Please Note : People can manipulate hidden field amounts in form,
-	//In practical world you must fetch actual price from database using item id. Eg: 
-	//$ItemPrice = $mysqli->query("SELECT item_price FROM products WHERE id = Product_Number");
     
 	$item = json_decode($_POST["pdata"]);
 	$totalprice = (float) $_POST["totalprice"];
@@ -27,19 +22,20 @@ if($_POST) //Post Data received from product list page.
 				'&L_PAYMENTREQUEST_0_QTY'.$i.'='. urlencode((int)$item[$i]->quantity);
 
 	}
+
 	//Other important variables like tax, shipping cost
 	$TotalTaxAmount 	= 2.58;  //Sum of tax for all items in this order. 
 	$HandalingCost 		= 2.00;  //Handling cost for this order.
 	$InsuranceCost 		= 1.00;  //shipping insurance cost for this order.
-	$ShippinDiscount 	= -3.00; //Shipping discount for this order. Specify this as negative number.
-	$ShippinCost 		= 3.00; //Although you may change the value later, try to pass in a shipping amount that is reasonably accurate.
+	$ShippinDiscount 	= -3.00; //Shipping discount for this order. 
+	$ShippinCost 		= 3.00; 
 	$GrandTotal = ($itemAmount + $TotalTaxAmount + $HandalingCost + $InsuranceCost + $ShippinCost + $ShippinDiscount);
 	//Grand total including all tax, insurance, shipping cost and discount
 	
 	//Parameters for SetExpressCheckout, which will be sent to PayPal
 				
 		$padata = $padata."&PAYMENTREQUEST_0_ITEMAMT=".urlencode($itemAmount).
-				'&NOSHIPPING=0'. //set 1 to hide buyer's shipping address, in-case products that does not require shipping
+				'&NOSHIPPING=0'. 
 				'&PAYMENTREQUEST_0_TAXAMT='.urlencode($TotalTaxAmount).
 				'&PAYMENTREQUEST_0_SHIPPINGAMT='.urlencode($ShippinCost).
 				'&PAYMENTREQUEST_0_HANDLINGAMT='.urlencode($HandalingCost).
@@ -47,45 +43,32 @@ if($_POST) //Post Data received from product list page.
 				'&PAYMENTREQUEST_0_INSURANCEAMT='.urlencode($InsuranceCost).
 				'&PAYMENTREQUEST_0_AMT='.urlencode($GrandTotal).
 				'&PAYMENTREQUEST_0_CURRENCYCODE='.urlencode($PayPalCurrencyCode).
-				'&LOCALECODE=GB'. //PayPal pages to match the language on your website.
-				'&CARTBORDERCOLOR=FFFFFF'. //border color of cart
+				'&LOCALECODE=GB'. 
+				'&CARTBORDERCOLOR=FFFFFF'. 
 				'&ALLOWNOTE=1';
 				
-				############# set session variable we need later for "DoExpressCheckoutPayment" #######
-				$_SESSION['Item'] 				=  $item; //Item Name
+				############# set session variable we need later for "DoExpressCheckoutPayment"
+				$_SESSION['Item'] 				=  $item; 
 				$_SESSION['ItemTotalPrice']     =  $itemAmount;
-				$_SESSION['TotalTaxAmount'] 	=  $TotalTaxAmount;  //Sum of tax for all items in this order. 
-				$_SESSION['HandalingCost'] 		=  $HandalingCost;  //Handling cost for this order.
-				$_SESSION['InsuranceCost'] 		=  $InsuranceCost;  //shipping insurance cost for this order.
-				$_SESSION['ShippinDiscount'] 	=  $ShippinDiscount; //Shipping discount for this order. Specify this as negative number.
-				$_SESSION['ShippinCost'] 		=  $ShippinCost; //Although you may change the value later, try to pass in a shipping amount that is reasonably accurate.
+				$_SESSION['TotalTaxAmount'] 	=  $TotalTaxAmount; 
+				$_SESSION['HandalingCost'] 		=  $HandalingCost;  
+				$_SESSION['InsuranceCost'] 		=  $InsuranceCost;  
+				$_SESSION['ShippinDiscount'] 	=  $ShippinDiscount; 
+				$_SESSION['ShippinCost'] 		=  $ShippinCost; 
 				$_SESSION['GrandTotal'] 		=  $GrandTotal;
 
 		//We need to execute the "SetExpressCheckOut" method to obtain paypal token
 		$paypal= new MyPayPal();
 		$httpParsedResponseAr = $paypal->PPHttpPost('SetExpressCheckout', $padata, $PayPalApiUsername, $PayPalApiPassword, $PayPalApiSignature, $PayPalMode);
 
-		//Respond according to message we receive from Paypal
+		//Respond according to message receiveed from Paypal
 		if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) or "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"]))
 		{
-
-				$token = $httpParsedResponseAr["TOKEN"];
-				$getexp = '&'.http_build_query(array('TOKEN'=>$token));
-				$httpParsedResponseAr2 = $paypal->PPHttpPost('GetExpressCheckoutDetails', $getexp, $PayPalApiUsername, $PayPalApiPassword, $PayPalApiSignature,$PayPalMode);
-				
-				if("SUCCESS" == strtoupper($httpParsedResponseAr2["ACK"]) or "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr2["ACK"])) 
-				{
-					$paypalurl ='https://www'.$paypalmode.'.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token='.$httpParsedResponseAr["TOKEN"].'';
-				 	$return["url"] = $paypalurl;
-				 	echo json_encode($return);
-				}
-
-				else{
-					echo '<div style="color:red"><b>Error : </b>'.urldecode($httpParsedResponseAr["L_LONGMESSAGE0"]).'</div>';
-					echo "error";
-				}
-			 
+			$paypalurl ='https://www'.$paypalmode.'.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token='.$httpParsedResponseAr["TOKEN"].'';
+			$return["url"] = $paypalurl;
+			echo json_encode($return);
 		}else{
-			print_r($httpParsedResponseAr);
+			echo '<div style="color:red"><b>Error : </b>'.urldecode($httpParsedResponseAr["L_LONGMESSAGE0"]).'</div>';
+			echo "error";
 		}
 }

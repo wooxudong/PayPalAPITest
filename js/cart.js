@@ -33,22 +33,28 @@ $(".item_add").on("click",function(){
 });
 
 $(document).on("click","#delete",function(e){
+  
   e.preventDefault();
+
   var name = $(this).parent().parent().find("td#name").text();
-  console.log(name);
+
   for (var i = 0; i < cart.length; i++) {
     if(cart[i]["name"] === name) 
       {
         cart.splice(i,1);
       }
   }
+
   updateShoppingCart();
 });
 
 function updateShoppingCart()
 {
+  
   $(".cart_body").empty();
+  
   totalprice = 0.0;
+
   for (var i = 0; i < cart.length; i++) {
     var cart_addrow = '<tr><td id="name">'+cart[i]["name"]+'</td><td id="quantity">X '+
                         cart[i]["quantity"]+'</td><td id="price">$'+cart[i]["price"]+
@@ -64,8 +70,8 @@ function updateShoppingCart()
 $(".paypalcheckout").on("click",function(e){
 
   e.preventDefault();
-  if(totalprice > 0)
-  {
+  
+  if(totalprice > 0){
     var data = JSON.stringify(cart);
     $.ajax({
       method: "POST",
@@ -76,9 +82,7 @@ $(".paypalcheckout").on("click",function(e){
       {
         window.location.href=res["url"];
       });
-  }
-  else
-  {
+  }else{
     $(".info").html("You haven't shopped any goods yet.");
   }
 });

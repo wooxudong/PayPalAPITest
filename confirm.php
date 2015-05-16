@@ -6,8 +6,7 @@ $paypalmode = ($PayPalMode=='sandbox') ? '.sandbox' : '';
 $paypal= new MyPayPal();
 
 if ($_POST) {
-    //we will be using these two variables to execute the "DoExpressCheckoutPayment"
-    //Note: we haven't received any payment yet.   
+    
     $token = $_POST["token"];
     $payer_id = $_POST["payer_id"];
 
@@ -18,7 +17,7 @@ if ($_POST) {
     $HandalingCost      = $_SESSION['HandalingCost'];  //Handling cost for this order.
     $InsuranceCost      = $_SESSION['InsuranceCost'];  //shipping insurance cost for this order.
     $ShippinDiscount    = $_SESSION['ShippinDiscount']; //Shipping discount for this order. Specify this as negative number.
-    $ShippinCost        = $_SESSION['ShippinCost']; //Although you may change the value later, try to pass in a shipping amount that is reasonably accurate.
+    $ShippinCost        = $_SESSION['ShippinCost']; 
     $GrandTotal         = $_SESSION['GrandTotal'];
 
     $padata =   '&TOKEN='.urlencode($token).
@@ -42,7 +41,7 @@ if ($_POST) {
                 '&PAYMENTREQUEST_0_AMT='.urlencode($GrandTotal).
                 '&PAYMENTREQUEST_0_CURRENCYCODE='.urlencode($PayPalCurrencyCode);
     
-    //We need to execute the "DoExpressCheckoutPayment" at this point to Receive payment from user.
+    //execute the "DoExpressCheckoutPayment" at this point to Receive payment from user.
     $paypal= new MyPayPal();
     $httpParsedResponseAr = $paypal->PPHttpPost('DoExpressCheckoutPayment', $padata, $PayPalApiUsername, $PayPalApiPassword, $PayPalApiSignature, $PayPalMode);
     //Check if everything went ok..
