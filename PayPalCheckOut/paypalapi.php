@@ -1,5 +1,6 @@
 <?php
-class MyPayPal { 	
+class MyPayPal { 
+
 	function PPHttpPost($methodName_, $nvpStr_, $PayPalApiUsername, $PayPalApiPassword, $PayPalApiSignature, $PayPalMode) {
 			// Set up your API credentials, PayPal end point, and API version.
 			$API_UserName = urlencode($PayPalApiUsername);
@@ -16,10 +17,11 @@ class MyPayPal {
 			curl_setopt($ch, CURLOPT_URL, $API_Endpoint);
 			curl_setopt($ch, CURLOPT_VERBOSE, 1);
 		
-			// Turn off the server and peer verification (TrustManager Concept).
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-		
+			//SSL verification.
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+			curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__).'/cacert.pem');
+
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_POST, 1);
 		
