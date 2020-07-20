@@ -1,4 +1,4 @@
-# PayPalAPITest
+# PayPal checkout API service
 
 This project aims to inplement the PayPal’s Express Checkout API on a simple shopping website. 
 
